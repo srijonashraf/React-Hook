@@ -27,7 +27,6 @@ const CallingApi = () => {
     setIsButtonClicked(true);
   };
 
-
   const renderTableHeaders = () => {
     try {
       if (isButtonClicked && Data["data"].length !== 0) {
@@ -74,15 +73,21 @@ const CallingApi = () => {
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <Button variant="outline-success" className="my-3 btn-lg" onClick={handleClick}>
+      <Button
+        variant="outline-success"
+        className="my-3 btn-lg"
+        onClick={handleClick}
+      >
         Fetch Data!
       </Button>
-      <table className="table table-bordered table-responsive w-100">
-        <thead>
-          <tr>{renderTableHeaders()}</tr>
-        </thead>
-        <tbody>{renderTableBody()}</tbody>
-      </table>
+      <div className="table-responsive">
+        <table className="table table-bordered table-sm">
+          <thead>
+            <tr>{renderTableHeaders()}</tr>
+          </thead>
+          <tbody>{renderTableBody()}</tbody>
+        </table>
+      </div>
       <Toaster position="top-right" />
     </div>
   );
