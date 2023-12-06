@@ -77,7 +77,7 @@ const CallingApi = () => {
       <Button variant="outline-success" className="my-3 btn-lg" onClick={handleClick}>
         Fetch Data!
       </Button>
-      <table className="table table-bordered w-50">
+      <table className="table table-bordered table-responsive w-100">
         <thead>
           <tr>{renderTableHeaders()}</tr>
         </thead>
