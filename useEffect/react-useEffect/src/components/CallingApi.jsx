@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 
 const CallingApi = () => {
@@ -7,24 +7,22 @@ const CallingApi = () => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
   useEffect(() => {
-    if (isButtonClicked) {
-      (async () => {
-        try {
-          let response = await fetch(
-            "https://crud-backend-srijonashraf.vercel.app/api/v1/ReadProduct"
-          );
-          let data = await response.json();
-          setData(data);
-          toast.success("Data Fetched Successfully!");
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      })();
-    }
-  }, [isButtonClicked]);
+    (async () => {
+      try {
+        let response = await fetch(
+          "https://crud-backend-srijonashraf.vercel.app/api/v1/ReadProduct"
+        );
+        let data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    })();
+  }, []);
 
   const handleClick = () => {
     setIsButtonClicked(true);
+    toast.success("Data Fetched Successfully!");
   };
 
   const renderTableHeaders = () => {
@@ -35,7 +33,7 @@ const CallingApi = () => {
           <th key={key}>{key.replace(/_/g, "").toLocaleUpperCase()}</th>
         ));
       } else {
-        <th>No Data Found!</th>;
+        return <th>No Data Found!</th>;
       }
     } catch (error) {
       return null;
@@ -72,22 +70,32 @@ const CallingApi = () => {
   };
 
   return (
-    <div className="d-flex flex-column align-items-center">
-      <Button
-        variant="outline-success"
-        className="my-3 btn-lg"
-        onClick={handleClick}
-      >
-        Fetch Data!
-      </Button>
-      <div className="table-responsive">
-        <table className="table table-bordered table-sm">
-          <thead>
-            <tr>{renderTableHeaders()}</tr>
-          </thead>
-          <tbody>{renderTableBody()}</tbody>
-        </table>
-      </div>
+    <div className="container">
+      <Row className="my-3">
+        <Col>
+          <Button
+            variant="outline-success"
+            className="btn-lg"
+            onClick={handleClick}
+          >
+            Fetch Data!
+          </Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <div className="table-responsive">
+            <div className="overflow-auto">
+              <table className="table table-bordered table-sm">
+                <thead>
+                  <tr>{renderTableHeaders()}</tr>
+                </thead>
+                <tbody>{renderTableBody()}</tbody>
+              </table>
+            </div>
+          </div>
+        </Col>
+      </Row>
       <Toaster position="top-right" />
     </div>
   );
