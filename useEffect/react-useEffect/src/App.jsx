@@ -4,6 +4,7 @@ import CallingApi from "./components/CallingApi.jsx";
 import counterImage from "../src/assets/img/counter.png";
 import ApiImage from "../src/assets/img/api.png";
 import Image from "react-bootstrap/Image";
+import toast, { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [show, setShow] = useState(false);
@@ -12,6 +13,11 @@ const App = () => {
   const sourceCodeHandler = () => {
     setShow(!show);
     setBtnText(show ? "View Source Code" : "Hide Source Code");
+    if (!show) {
+      toast.success("Source Code view expanded");
+    } else {
+      toast.error("Source view hidden");
+    }
   };
 
   return (
@@ -27,6 +33,7 @@ const App = () => {
           <Image src={ApiImage} className="w-50 shadow" alt="" />
         </>
       )}
+      <Toaster position="top-right" />
     </div>
   );
 };
