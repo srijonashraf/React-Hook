@@ -16,7 +16,7 @@ const App = () => {
     if (!show) {
       toast.success("Source Code view expanded");
     } else {
-      toast.error("Source view hidden");
+      toast.error("Source Code view hidden");
     }
   };
 
